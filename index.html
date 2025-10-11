@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartStudy - Plataforma de Tutorías Académicas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #fff8f0;
+            color: #333;
+        }
+        header {
+            background-color: #ff7b00;
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+        header p {
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+        nav {
+            background-color: #e85c00;
+            display: flex;
+            justify-content: center;
+            padding: 0.5rem;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            font-weight: bold;
+        }
+        nav a:hover {
+            background-color: #ff8c1a;
+            border-radius: 8px;
+        }
+        section {
+            max-width: 1000px;
+            margin: 2rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #ff7b00;
+            border-bottom: 2px solid #ff7b00;
+            padding-bottom: 0.5rem;
+        }
+        ul {
+            line-height: 1.8;
+        }
+        footer {
+            background-color: #e85c00;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+        }
+        .integrantes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 10px;
+            margin-top: 1rem;
+        }
+        .integrante {
+            background: #ffe5cc;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1><i class="fa-solid fa-graduation-cap"></i> SmartStudy</h1>
+    <p>Plataforma gratuita de tutorías académicas – Universidad San Buenaventura Cali</p>
+</header>
+
+<nav>
+    <a href="#objetivo">Objetivo</a>
+    <a href="#requerimientos">Requerimientos</a>
+    <a href="#modulos">Módulos</a>
+    <a href="#tecnologias">Tecnologías</a>
+    <a href="#equipo">Equipo</a>
+</nav>
+
+<section id="objetivo">
+    <h2>🎯 Objetivo del Proyecto</h2>
+    <p>
+        Desarrollar una plataforma web gratuita que conecte estudiantes con tutores académicos, 
+        permitiendo gestionar tutorías, reservas y calificaciones de forma accesible desde cualquier dispositivo.
+    </p>
+</section>
+
+<section id="requerimientos">
+    <h2>🧩 Requerimientos</h2>
+    <h3>Funcionales</h3>
+    <ul>
+        <li>Registro e inicio de sesión (estudiante o tutor)</li>
+        <li>Búsqueda de tutorías por materia, fecha o tutor</li>
+        <li>Reserva y confirmación de tutorías</li>
+        <li>Calificación de tutores</li>
+        <li>Historial de sesiones</li>
+        <li>Notificaciones de confirmación o recordatorio</li>
+    </ul>
+
+    <h3>No Funcionales</h3>
+    <ul>
+        <li>Interfaz intuitiva y accesible</li>
+        <li>Seguridad con contraseñas cifradas</li>
+        <li>Optimización para PC y móvil</li>
+        <li>Respuesta rápida (menos de 3 segundos por búsqueda)</li>
+    </ul>
+</section>
+
+<section id="modulos">
+    <h2>🧱 Módulos Principales</h2>
+    <ul>
+        <li><b>Autenticación:</b> Registro y gestión de usuarios</li>
+        <li><b>Gestión de Tutorías:</b> Creación y administración de sesiones</li>
+        <li><b>Reservas:</b> Confirmación, cancelación y control de cupos</li>
+        <li><b>Historial:</b> Consulta de tutorías pasadas y futuras</li>
+        <li><b>Valoraciones:</b> Calificación de tutores</li>
+        <li><b>Notificaciones:</b> Confirmaciones y recordatorios automáticos</li>
+    </ul>
+</section>
+
+<section id="tecnologias">
+    <h2>💻 Tecnologías Utilizadas</h2>
+    <ul>
+        <li>HTML5</li>
+        <li>CSS3</li>
+        <li>JavaScript</li>
+        <li>Font Awesome</li>
+    </ul>
+</section>
+
+<section id="equipo">
+    <h2>👩‍💻 Equipo de Desarrollo</h2>
+    <div class="integrantes">
+        <div class="integrante">José Ángel Morales</div>
+        <div class="integrante">Santiago Rodríguez Rivera</div>
+        <div class="integrante">Daniel Estrella</div>
+        <div class="integrante">Jacobo Bejarano</div>
+        <div class="integrante">Daniel Victoria</div>
+        <div class="integrante">Juan David Giraldo</div>
+        <div class="integrante">Juan José Rivera</div>
+        <div class="integrante">Inti</div>
+    </div>
+    <p style="margin-top:1rem;"><b>Docente:</b> Simena Dinas<br><b>Universidad:</b> San Buenaventura – Cali, Colombia</p>
+</section>
+
+<footer>
+    <p>© 2025 SmartStudy – Universidad San Buenaventura Cali</p>
+</footer>
+
+</body>
+</html>
