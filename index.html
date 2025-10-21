@@ -3,168 +3,1703 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartStudy - Plataforma de Tutorías Académicas</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>SmartStudy - Plataforma de Tutorías</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        /* ===== ESTILOS GENERALES ===== */
+        * {
             margin: 0;
             padding: 0;
-            background: #fff8f0;
-            color: #333;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         }
+        
+        :root {
+            --primary: #ffa500;
+            --secondary: #ff9100;
+            --accent: #fdc200;
+            --light: #ffae01;
+            --dark: #212529;
+            --success: #4bb543;
+            --warning: #ffc107;
+            --danger: #dc3545;
+        }
+        
+        body {
+            background-color: #f5f7fb;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* ===== HEADER ===== */
         header {
-            background-color: #ff7b00;
-            color: white;
-            text-align: center;
-            padding: 2rem 1rem;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        header h1 {
-            margin: 0;
-            font-size: 2rem;
-        }
-        header p {
-            font-size: 1.1rem;
-            margin-top: 0.5rem;
-        }
-        nav {
-            background-color: #e85c00;
+        
+        .header-content {
             display: flex;
-            justify-content: center;
-            padding: 0.5rem;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
         }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .logo i {
+            font-size: 1.8rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
         nav a {
-            color: white;
             text-decoration: none;
-            padding: 0.75rem 1rem;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+        
+        nav a:hover, nav a.active {
+            color: var(--primary);
+        }
+        
+        .user-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        /* ===== HERO SECTION ===== */
+        .hero {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .search-bar {
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-bar input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+        }
+        
+        .search-bar button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0 25px;
+            cursor: pointer;
+        }
+        
+        /* ===== SECCIONES ===== */
+        section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        
+        .section-title p {
+            color: #6c757d;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* ===== TARJETAS DE TUTORÍAS ===== */
+        .tutorias-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .tutoria-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .tutoria-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-header {
+            padding: 20px;
+            background: var(--primary);
+            color: white;
+        }
+        
+        .card-header h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .tutor-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .tutor-details h4 {
+            margin-bottom: 5px;
+        }
+        
+        .rating {
+            color: var(--warning);
+            margin-bottom: 5px;
+        }
+        
+        .tutoria-details {
+            margin: 15px 0;
+        }
+        
+        .detail {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .card-footer {
+            padding: 15px 20px;
+            background: #f8f9fa;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .price {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--success);
+        }
+        
+        /* ===== FILTROS ===== */
+        .filters {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+        
+        .filter-row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .filter-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .filter-group select, .filter-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+        }
+        
+        /* ===== RESERVAS ===== */
+        .reservas-tabs {
+            display: flex;
+            border-bottom: 1px solid #dee2e6;
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab.active {
+            border-bottom: 3px solid var(--primary);
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        /* ===== CONTENIDO DE PESTAÑAS ===== */
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* ===== MODALES ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 450px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .modal-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .modal-header h2 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .form-footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+        
+        .footer-column a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #495057;
+            color: #adb5bd;
+        }
+        
+        .free-badge {
+            background: var(--success);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        /* ===== ESTADOS VACÍOS ===== */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .empty-state i {
+            font-size: 4rem;
+            color: #e9ecef;
+            margin-bottom: 20px;
+        }
+        
+        .empty-state h3 {
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .empty-state p {
+            color: #6c757d;
+            max-width: 500px;
+            margin: 0 auto 20px;
+        }
+        
+        /* ===== ESTADOS DE RESERVA ===== */
+        .estado-confirmada {
+            color: var(--success);
             font-weight: bold;
         }
-        nav a:hover {
-            background-color: #ff8c1a;
+        
+        .estado-pendiente {
+            color: var(--warning);
+            font-weight: bold;
+        }
+        
+        .estado-completada {
+            color: #6c757d;
+            font-weight: bold;
+        }
+        
+        .estado-cancelada {
+            color: var(--danger);
+            font-weight: bold;
+        }
+        
+        /* ===== MODAL INFORMACIÓN ===== */
+        .info-modal {
+            max-width: 600px;
+        }
+        
+        .info-steps {
+            margin: 20px 0;
+        }
+        
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f8f9fa;
             border-radius: 8px;
         }
-        section {
-            max-width: 1000px;
-            margin: 2rem auto;
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        h2 {
-            color: #ff7b00;
-            border-bottom: 2px solid #ff7b00;
-            padding-bottom: 0.5rem;
-        }
-        ul {
-            line-height: 1.8;
-        }
-        footer {
-            background-color: #e85c00;
+        
+        .step-number {
+            background: var(--primary);
             color: white;
-            text-align: center;
-            padding: 1.5rem;
-            margin-top: 3rem;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
         }
-        .integrantes {
+        
+        .step-content h4 {
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        .step-content p {
+            color: #6c757d;
+            margin: 0;
+        }
+        
+        /* ===== SIN RESULTADOS ===== */
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            grid-column: 1 / -1;
+        }
+        
+        .no-results i {
+            font-size: 4rem;
+            color: #e9ecef;
+            margin-bottom: 20px;
+        }
+        
+        /* ===== TUTORES ===== */
+        .tutores-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 10px;
-            margin-top: 1rem;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
         }
-        .integrante {
-            background: #ffe5cc;
-            padding: 1rem;
-            border-radius: 8px;
+        
+        .tutor-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
             text-align: center;
-            font-weight: 500;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .tutor-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .tutor-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 15px;
+        }
+        
+        .tutor-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 15px 0;
+            padding: 15px 0;
+            border-top: 1px solid #e9ecef;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: #6c757d;
+        }
+        
+        /* ===== MEJORAS ADICIONALES ===== */
+        .form-options input[type="checkbox"] {
+            margin-right: 8px;
+        }
+        
+        .form-options label {
+            display: inline;
+            font-weight: normal;
+        }
+        
+        .btn:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+        
+        .btn:disabled:hover {
+            background-color: #6c757d;
+        }
+        
+        .btn:focus, input:focus, select:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                gap: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .tutorias-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero {
+                padding: 50px 0;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .search-bar {
+                flex-direction: column;
+                border-radius: 10px;
+            }
+            
+            .search-bar input {
+                border-radius: 10px 10px 0 0;
+            }
+            
+            .search-bar button {
+                border-radius: 0 0 10px 10px;
+                padding: 12px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>SmartStudy <span class="free-badge">NOW</span></span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="active" id="nav-inicio">Inicio</a></li>
+                        <li><a href="#" id="nav-tutorias">Tutorías</a></li>
+                        <li><a href="#" id="nav-tutores">Tutores</a></li>
+                        <li><a href="#" id="nav-como-funciona">Cómo funciona</a></li>
+                        <li><a href="#" id="nav-contacto">Contacto</a></li>
+                    </ul>
+                </nav>
+                <div class="user-actions">
+                    <button class="btn btn-outline" id="loginBtn">Iniciar Sesión</button>
+                    <button class="btn btn-primary" id="registerBtn">Registrarse</button>
+                </div>
+            </div>
+        </div>
+    </header>
 
-<header>
-    <h1><i class="fa-solid fa-graduation-cap"></i> SmartStudy</h1>
-    <p>Plataforma gratuita de tutorías académicas – Universidad San Buenaventura Cali</p>
-</header>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Tutorías Académicas</h1>
+            <p>Plataforma dedicada a tutorías. Conectamos estudiantes con tutores con una amplia variedad de materias y niveles educativos.</p>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Buscar por materia, tutor o tema...">
+                <button id="searchButton"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </section>
 
-<nav>
-    <a href="#objetivo">Objetivo</a>
-    <a href="#requerimientos">Requerimientos</a>
-    <a href="#modulos">Módulos</a>
-    <a href="#tecnologias">Tecnologías</a>
-    <a href="#equipo">Equipo</a>
-</nav>
+    <!-- Filtros -->
+    <section id="filtros-section">
+        <div class="container">
+            <div class="filters">
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label for="materia">Materia</label>
+                        <select id="materia">
+                            <option value="">Todas las materias</option>
+                            <option value="matematicas">Matemáticas</option>
+                            <option value="ciencias">Ciencias</option>
+                            <option value="lenguaje">Lenguaje</option>
+                            <option value="historia">Historia</option>
+                            <option value="programacion">Programación</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="fecha">Fecha</label>
+                        <input type="date" id="fecha">
+                    </div>
+                    <div class="filter-group">
+                        <label for="modalidad">Modalidad</label>
+                        <select id="modalidad">
+                            <option value="">Cualquier modalidad</option>
+                            <option value="virtual">Virtual</option>
+                            <option value="presencial">Presencial</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="filter-row" style="margin-top: 15px; justify-content: flex-end;">
+                    <button class="btn btn-outline" id="resetFilters">Limpiar Filtros</button>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<section id="objetivo">
-    <h2>🎯 Objetivo del Proyecto</h2>
-    <p>
-        Desarrollar una plataforma web gratuita que conecte estudiantes con tutores académicos, 
-        permitiendo gestionar tutorías, reservas y calificaciones de forma accesible desde cualquier dispositivo.
-    </p>
-</section>
+    <!-- Tutorías Disponibles -->
+    <section id="tutorias-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Tutorías Disponibles</h2>
+                <p>Explora todas nuestras tutorías disponibles en este momento</p>
+            </div>
+            <div class="tutorias-grid" id="tutorias-grid">
+                <!-- Las tarjetas se generarán dinámicamente -->
+            </div>
+        </div>
+    </section>
 
-<section id="requerimientos">
-    <h2>🧩 Requerimientos</h2>
-    <h3>Funcionales</h3>
-    <ul>
-        <li>Registro e inicio de sesión (estudiante o tutor)</li>
-        <li>Búsqueda de tutorías por materia, fecha o tutor</li>
-        <li>Reserva y confirmación de tutorías</li>
-        <li>Calificación de tutores</li>
-        <li>Historial de sesiones</li>
-        <li>Notificaciones de confirmación o recordatorio</li>
-    </ul>
+    <!-- Sección de Tutores -->
+    <section id="tutores-section" style="display: none;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nuestros Tutores</h2>
+                <p>Conoce a nuestro equipo de tutores especializados</p>
+            </div>
+            <div class="tutores-grid" id="tutores-grid">
+                <!-- Las tarjetas de tutores se generarán dinámicamente -->
+            </div>
+        </div>
+    </section>
 
-    <h3>No Funcionales</h3>
-    <ul>
-        <li>Interfaz intuitiva y accesible</li>
-        <li>Seguridad con contraseñas cifradas</li>
-        <li>Optimización para PC y móvil</li>
-        <li>Respuesta rápida (menos de 3 segundos por búsqueda)</li>
-    </ul>
-</section>
+    <!-- Mis Reservas -->
+    <section id="reservas-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Mis Reservas</h2>
+                <p>Gestiona tus tutorías confirmadas y pendientes</p>
+            </div>
+            <div class="reservas-tabs">
+                <div class="tab active" data-tab="proximas">Próximas</div>
+                <div class="tab" data-tab="pendientes">Pendientes</div>
+                <div class="tab" data-tab="historial">Historial</div>
+            </div>
 
-<section id="modulos">
-    <h2>🧱 Módulos Principales</h2>
-    <ul>
-        <li><b>Autenticación:</b> Registro y gestión de usuarios</li>
-        <li><b>Gestión de Tutorías:</b> Creación y administración de sesiones</li>
-        <li><b>Reservas:</b> Confirmación, cancelación y control de cupos</li>
-        <li><b>Historial:</b> Consulta de tutorías pasadas y futuras</li>
-        <li><b>Valoraciones:</b> Calificación de tutores</li>
-        <li><b>Notificaciones:</b> Confirmaciones y recordatorios automáticos</li>
-    </ul>
-</section>
+            <!-- Contenido de pestañas -->
+            <div id="proximas" class="tab-content active">
+                <div class="empty-state" id="empty-proximas">
+                    <i class="fas fa-calendar-plus"></i>
+                    <h3>No tienes reservas próximas</h3>
+                    <p>Las reservas confirmadas que están por ocurrir aparecerán aquí.</p>
+                    <button class="btn btn-primary" onclick="scrollToTutorias()">Explorar Tutorías</button>
+                </div>
+                <div class="tutorias-grid" id="reservas-proximas"></div>
+            </div>
 
-<section id="tecnologias">
-    <h2>💻 Tecnologías Utilizadas</h2>
-    <ul>
-        <li>HTML5</li>
-        <li>CSS3</li>
-        <li>JavaScript</li>
-        <li>Font Awesome</li>
-    </ul>
-</section>
+            <div id="pendientes" class="tab-content">
+                <div class="empty-state" id="empty-pendientes">
+                    <i class="fas fa-clock"></i>
+                    <h3>No tienes reservas pendientes</h3>
+                    <p>Las reservas que están esperando confirmación aparecerán aquí.</p>
+                    <button class="btn btn-primary" onclick="scrollToTutorias()">Explorar Tutorías</button>
+                </div>
+                <div class="tutorias-grid" id="reservas-pendientes"></div>
+            </div>
 
-<section id="equipo">
-    <h2>👩‍💻 Equipo de Desarrollo</h2>
-    <div class="integrantes">
-        <div class="integrante">José Ángel Morales</div>
-        <div class="integrante">Santiago Rodríguez Rivera</div>
-        <div class="integrante">Daniel Estrella</div>
-        <div class="integrante">Jacobo Bejarano</div>
-        <div class="integrante">Daniel Victoria</div>
-        <div class="integrante">Juan David Giraldo</div>
-        <div class="integrante">Juan José Rivera</div>
-        <div class="integrante">Inti</div>
+            <div id="historial" class="tab-content">
+                <div class="empty-state" id="empty-historial">
+                    <i class="fas fa-history"></i>
+                    <h3>No hay historial de reservas</h3>
+                    <p>Tu historial de tutorías completadas y canceladas aparecerá aquí.</p>
+                    <button class="btn btn-primary" onclick="scrollToTutorias()">Explorar Tutorías</button>
+                </div>
+                <div class="tutorias-grid" id="reservas-historial"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modales -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Iniciar Sesión</h2>
+                <p>Ingresa a tu cuenta de SmartStudy</p>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Correo Electrónico</label>
+                    <input type="email" id="email" placeholder="tu@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" placeholder="Tu contraseña" required>
+                </div>
+                <div class="form-options">
+                    <div>
+                        <input type="checkbox" id="remember">
+                        <label for="remember">Recordarme</label>
+                    </div>
+                    <a href="#">¿Olvidaste tu contraseña?</a>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Iniciar Sesión</button>
+                <div class="form-footer">
+                    <p>¿No tienes una cuenta? <a href="#" id="switchToRegister">Regístrate</a></p>
+                </div>
+            </form>
+        </div>
     </div>
-    <p style="margin-top:1rem;"><b>Docente:</b> Simena Dinas<br><b>Universidad:</b> San Buenaventura – Cali, Colombia</p>
-</section>
 
-<footer>
-    <p>© 2025 SmartStudy – Universidad San Buenaventura Cali</p>
-</footer>
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Crear Cuenta</h2>
+                <p>Únete a nuestra comunidad de aprendizaje</p>
+            </div>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="fullname">Nombre Completo</label>
+                    <input type="text" id="fullname" placeholder="Tu nombre completo" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-email">Correo Electrónico</label>
+                    <input type="email" id="reg-email" placeholder="tu@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-password">Contraseña</label>
+                    <input type="password" id="reg-password" placeholder="Crea una contraseña segura" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirmar Contraseña</label>
+                    <input type="password" id="confirm-password" placeholder="Repite tu contraseña" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Crear Cuenta</button>
+                <div class="form-footer">
+                    <p>¿Ya tienes una cuenta? <a href="#" id="switchToLogin">Inicia Sesión</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
 
+    <div class="modal" id="comoFuncionaModal">
+        <div class="modal-content info-modal">
+            <div class="modal-header">
+                <h2>¿Cómo Funciona SmartStudy?</h2>
+                <p>Sigue estos simples pasos para comenzar a aprender</p>
+            </div>
+            <div class="info-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Regístrate en la Plataforma</h4>
+                        <p>Crea tu cuenta gratuita como estudiante para acceder a todas las tutorías disponibles.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Explora Tutorías Disponibles</h4>
+                        <p>Busca por materia, fecha o modalidad (virtual/presencial) para encontrar la tutoría perfecta.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Reserva tu Sesión</h4>
+                        <p>Selecciona el horario que mejor se adapte a tu disponibilidad y confirma tu reserva.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Asiste a tu Tutoría</h4>
+                        <p>Conéctate virtualmente o asiste presencialmente según la modalidad seleccionada.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>Evalúa tu Experiencia</h4>
+                        <p>Comparte tu feedback para ayudar a mejorar nuestro servicio y a otros estudiantes.</p>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary" style="width: 100%;" onclick="document.getElementById('comoFuncionaModal').style.display = 'none'">Entendido</button>
+        </div>
+    </div>
+
+    <div class="modal" id="contactoModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Contacto</h2>
+                <p>¿Necesitas ayuda? Estamos aquí para apoyarte</p>
+            </div>
+            <form id="contactoForm">
+                <div class="form-group">
+                    <label for="contact-name">Nombre Completo</label>
+                    <input type="text" id="contact-name" placeholder="Tu nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact-email">Correo Electrónico</label>
+                    <input type="email" id="contact-email" placeholder="tu@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact-subject">Asunto</label>
+                    <select id="contact-subject" style="width: 100%; padding: 12px; border: 1px solid #ced4da; border-radius: 6px;">
+                        <option value="">Selecciona un asunto</option>
+                        <option value="soporte">Soporte Técnico</option>
+                        <option value="informacion">Información General</option>
+                        <option value="tutoria">Ser Tutor</option>
+                        <option value="problema">Reportar Problema</option>
+                        <option value="sugerencia">Sugerencia</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="contact-message">Mensaje</label>
+                    <textarea id="contact-message" placeholder="Describe tu consulta o solicitud..." style="width: 100%; padding: 12px; border: 1px solid #ced4da; border-radius: 6px; min-height: 120px; resize: vertical;" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar Mensaje</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>SmartStudy</h3>
+                    <p>Plataforma de tutorías totalmente confiable. Conectamos estudiantes con tutores voluntarios.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="#" class="footer-link" data-section="inicio">Inicio</a></li>
+                        <li><a href="#" class="footer-link" data-section="tutorias">Tutorías</a></li>
+                        <li><a href="#" class="footer-link" data-section="tutores">Tutores</a></li>
+                        <li><a href="#" class="footer-link" data-section="como-funciona">Cómo funciona</a></li>
+                        <li><a href="#" class="footer-link" data-section="contacto">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Recursos</h3>
+                    <ul>
+                        <li><a href="#">Centro de Ayuda</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Preguntas Frecuentes</a></li>
+                        <li><a href="#">Política de Privacidad</a></li>
+                        <li><a href="#">Términos de Servicio</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> miuk@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> +57 320 7469786</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Ciudad de Cali Universitaria San Buenaventura, Edificio Farallones D106</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2025 SmartStudy. Todos los derechos son reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ===== DATOS DE LA APLICACIÓN =====
+        const tutorias = [
+            {
+                id: 1,
+                titulo: "Matemáticas Avanzadas",
+                subtitulo: "Cálculo Diferencial",
+                tutor: "María Cortés",
+                avatar: "MC",
+                rating: '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><span>4.5 (32)</span>',
+                fecha: "15 Oct, 2025",
+                hora: "14:00 - 15:30",
+                duracion: "90 min",
+                modalidad: "virtual",
+                materia: "matematicas",
+                precio: "Gratuita"
+            },
+            {
+                id: 2,
+                titulo: "Programación Web",
+                subtitulo: "HTML, CSS y JavaScript",
+                tutor: "Carlos Ramírez",
+                avatar: "CR",
+                rating: '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><span>4.0 (18)</span>',
+                fecha: "16 Nov, 2025",
+                hora: "10:00 - 11:30",
+                duracion: "90 min",
+                modalidad: "presencial",
+                materia: "programacion",
+                precio: "Gratuita"
+            },
+            {
+                id: 3,
+                titulo: "Física Básica",
+                subtitulo: "Mecánica Clásica",
+                tutor: "Ana García",
+                avatar: "AG",
+                rating: '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><span>5.0 (25)</span>',
+                fecha: "30 Oct, 2025",
+                hora: "16:00 - 17:00",
+                duracion: "60 min",
+                modalidad: "virtual",
+                materia: "ciencias",
+                precio: "Gratuita"
+            },
+            {
+                id: 4,
+                titulo: "Química Orgánica",
+                subtitulo: "Compuestos y Reacciones",
+                tutor: "Jorge López",
+                avatar: "JL",
+                rating: '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><span>4.5 (42)</span>',
+                fecha: "18 Nov, 2025",
+                hora: "11:00 - 12:30",
+                duracion: "90 min",
+                modalidad: "virtual",
+                materia: "ciencias",
+                precio: "Gratuita"
+            },
+            {
+                id: 5,
+                titulo: "Historia Universal",
+                subtitulo: "Edad Contemporánea",
+                tutor: "Sofía Pérez",
+                avatar: "SP",
+                rating: '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><span>4.0 (28)</span>',
+                fecha: "20 Oct, 2025",
+                hora: "15:00 - 16:00",
+                duracion: "60 min",
+                modalidad: "presencial",
+                materia: "historia",
+                precio: "Gratuita"
+            },
+            {
+                id: 6,
+                titulo: "Inglés Avanzado",
+                subtitulo: "Conversación y Gramática",
+                tutor: "Roberto Méndez",
+                avatar: "RM",
+                rating: '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><span>5.0 (35)</span>',
+                fecha: "25 Oct, 2025",
+                hora: "09:00 - 10:30",
+                duracion: "90 min",
+                modalidad: "virtual",
+                materia: "lenguaje",
+                precio: "Gratuita"
+            }
+        ];
+
+        const tutores = [
+            {
+                id: 1,
+                nombre: "María Cortés",
+                avatar: "MC",
+                materia: "Matemáticas",
+                experiencia: "3 años",
+                rating: 4.5,
+                tutorias: 32,
+                especialidades: ["Cálculo", "Álgebra", "Estadística"]
+            },
+            {
+                id: 2,
+                nombre: "Carlos Ramírez",
+                avatar: "CR",
+                materia: "Programación",
+                experiencia: "4 años",
+                rating: 4.0,
+                tutorias: 18,
+                especialidades: ["Web Development", "JavaScript", "Python"]
+            },
+            {
+                id: 3,
+                nombre: "Ana García",
+                avatar: "AG",
+                materia: "Física",
+                experiencia: "2 años",
+                rating: 5.0,
+                tutorias: 25,
+                especialidades: ["Mecánica", "Termodinámica", "Óptica"]
+            },
+            {
+                id: 4,
+                nombre: "Jorge López",
+                avatar: "JL",
+                materia: "Química",
+                experiencia: "5 años",
+                rating: 4.5,
+                tutorias: 42,
+                especialidades: ["Orgánica", "Analítica", "Bioquímica"]
+            }
+        ];
+
+        let reservas = {
+            proximas: [],
+            pendientes: [],
+            historial: []
+        };
+
+        // ===== INICIALIZACIÓN =====
+        document.addEventListener('DOMContentLoaded', function() {
+            inicializarAplicacion();
+        });
+
+        function inicializarAplicacion() {
+            generarTutorias();
+            generarTutores();
+            inicializarEventListeners();
+            actualizarTodasLasVistas();
+        }
+
+        // ===== GENERACIÓN DE CONTENIDO =====
+        function generarTutorias() {
+            const grid = document.getElementById('tutorias-grid');
+            grid.innerHTML = '';
+            tutorias.forEach(tutoria => {
+                const tarjeta = crearTarjetaTutoria(tutoria);
+                grid.appendChild(tarjeta);
+            });
+        }
+
+        function generarTutores() {
+            const grid = document.getElementById('tutores-grid');
+            grid.innerHTML = '';
+            tutores.forEach(tutor => {
+                const tarjeta = crearTarjetaTutor(tutor);
+                grid.appendChild(tarjeta);
+            });
+        }
+
+        function crearTarjetaTutoria(tutoria) {
+            const tarjeta = document.createElement('div');
+            tarjeta.className = 'tutoria-card';
+            tarjeta.setAttribute('data-materia', tutoria.materia);
+            tarjeta.setAttribute('data-modalidad', tutoria.modalidad);
+            tarjeta.innerHTML = `
+                <div class="card-header">
+                    <h3>${tutoria.titulo}</h3>
+                    <p>${tutoria.subtitulo}</p>
+                </div>
+                <div class="card-body">
+                    <div class="tutor-info">
+                        <div class="avatar">${tutoria.avatar}</div>
+                        <div class="tutor-details">
+                            <h4>${tutoria.tutor}</h4>
+                            <div class="rating">${tutoria.rating}</div>
+                        </div>
+                    </div>
+                    <div class="tutoria-details">
+                        <div class="detail">
+                            <span>Fecha:</span>
+                            <span>${tutoria.fecha}</span>
+                        </div>
+                        <div class="detail">
+                            <span>Hora:</span>
+                            <span>${tutoria.hora}</span>
+                        </div>
+                        <div class="detail">
+                            <span>Duración:</span>
+                            <span>${tutoria.duracion}</span>
+                        </div>
+                        <div class="detail">
+                            <span>Modalidad:</span>
+                            <span>${tutoria.modalidad === 'virtual' ? 'Virtual' : 'Presencial'}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="price">${tutoria.precio}</div>
+                    <button class="btn btn-primary reservar-btn" data-id="${tutoria.id}">Reservar</button>
+                </div>
+            `;
+            return tarjeta;
+        }
+
+        function crearTarjetaTutor(tutor) {
+            const tarjeta = document.createElement('div');
+            tarjeta.className = 'tutor-card';
+            tarjeta.innerHTML = `
+                <div class="tutor-avatar">${tutor.avatar}</div>
+                <h3>${tutor.nombre}</h3>
+                <p style="color: var(--primary); font-weight: 500;">${tutor.materia}</p>
+                <p style="color: #6c757d; font-size: 0.9rem; margin: 5px 0;">Experiencia: ${tutor.experiencia}</p>
+                <div class="tutor-stats">
+                    <div class="stat">
+                        <div class="stat-number">${tutor.rating}</div>
+                        <div class="stat-label">Rating</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">${tutor.tutorias}</div>
+                        <div class="stat-label">Tutorías</div>
+                    </div>
+                </div>
+                <div style="text-align: left; margin-top: 15px;">
+                    <h4 style="font-size: 0.9rem; margin-bottom: 8px;">Especialidades:</h4>
+                    <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+                        ${tutor.especialidades.map(esp => `<span style="background: #e9ecef; padding: 4px 8px; border-radius: 15px; font-size: 0.8rem;">${esp}</span>`).join('')}
+                    </div>
+                </div>
+                <button class="btn btn-outline" style="width: 100%; margin-top: 15px;">Ver Disponibilidad</button>
+            `;
+            return tarjeta;
+        }
+
+        // ===== SISTEMA DE FILTROS =====
+        function aplicarFiltros() {
+            const materia = document.getElementById('materia').value;
+            const modalidad = document.getElementById('modalidad').value;
+            const fecha = document.getElementById('fecha').value;
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const tarjetas = document.querySelectorAll('.tutoria-card');
+            
+            let resultadosVisibles = 0;
+            
+            tarjetas.forEach(tarjeta => {
+                const tarjetaMateria = tarjeta.getAttribute('data-materia');
+                const tarjetaModalidad = tarjeta.getAttribute('data-modalidad');
+                const titulo = tarjeta.querySelector('.card-header h3').textContent.toLowerCase();
+                const tutor = tarjeta.querySelector('.tutor-details h4').textContent.toLowerCase();
+                
+                let coincide = true;
+                
+                if (materia && tarjetaMateria !== materia) {
+                    coincide = false;
+                }
+                
+                if (modalidad && tarjetaModalidad !== modalidad) {
+                    coincide = false;
+                }
+                
+                if (searchTerm && !titulo.includes(searchTerm) && !tutor.includes(searchTerm)) {
+                    coincide = false;
+                }
+                
+                if (coincide) {
+                    tarjeta.style.display = 'block';
+                    resultadosVisibles++;
+                } else {
+                    tarjeta.style.display = 'none';
+                }
+            });
+            
+            mostrarMensajeNoResultados(resultadosVisibles === 0);
+        }
+
+        function mostrarMensajeNoResultados(mostrar) {
+            let mensaje = document.getElementById('no-results-message');
+            if (mostrar && !mensaje) {
+                mensaje = document.createElement('div');
+                mensaje.id = 'no-results-message';
+                mensaje.className = 'no-results';
+                mensaje.innerHTML = `
+                    <i class="fas fa-search"></i>
+                    <h3>No se encontraron resultados</h3>
+                    <p>Intenta ajustar los filtros o términos de búsqueda.</p>
+                    <button class="btn btn-primary" onclick="limpiarFiltros()">Mostrar Todas</button>
+                `;
+                document.getElementById('tutorias-grid').appendChild(mensaje);
+            } else if (!mostrar && mensaje) {
+                mensaje.remove();
+            }
+        }
+
+        function limpiarFiltros() {
+            document.getElementById('materia').value = '';
+            document.getElementById('modalidad').value = '';
+            document.getElementById('fecha').value = '';
+            document.getElementById('searchInput').value = '';
+            aplicarFiltros();
+        }
+
+        // ===== SISTEMA DE RESERVAS =====
+        function realizarReserva(tutoriaId) {
+            const tutoria = tutorias.find(t => t.id === tutoriaId);
+            if (!tutoria) return;
+            
+            if (confirm(`¿Confirmar reserva para "${tutoria.titulo}" con ${tutoria.tutor}?`)) {
+                const reserva = {
+                    id: Date.now(),
+                    ...tutoria,
+                    estado: 'pendiente',
+                    fechaReserva: new Date().toLocaleDateString()
+                };
+                
+                reservas.pendientes.push(reserva);
+                alert('¡Reserva solicitada! Está pendiente de confirmación.');
+                actualizarTodasLasVistas();
+                
+                const botonReserva = document.querySelector(`.reservar-btn[data-id="${tutoriaId}"]`);
+                if (botonReserva) {
+                    botonReserva.textContent = 'Solicitada';
+                    botonReserva.disabled = true;
+                    botonReserva.style.backgroundColor = '#6c757d';
+                }
+            }
+        }
+
+        function confirmarReserva(reservaId) {
+            const reservaIndex = reservas.pendientes.findIndex(r => r.id === reservaId);
+            if (reservaIndex !== -1) {
+                const reserva = reservas.pendientes[reservaIndex];
+                reserva.estado = 'confirmada';
+                reservas.pendientes.splice(reservaIndex, 1);
+                reservas.proximas.push(reserva);
+                alert('Reserva confirmada exitosamente.');
+                actualizarTodasLasVistas();
+            }
+        }
+
+        function cancelarReserva(reservaId, tipo) {
+            if (confirm('¿Estás seguro de que quieres cancelar esta reserva?')) {
+                let reservaIndex = -1;
+                let reserva;
+                
+                if (tipo === 'pendientes') {
+                    reservaIndex = reservas.pendientes.findIndex(r => r.id === reservaId);
+                    if (reservaIndex !== -1) {
+                        reserva = reservas.pendientes[reservaIndex];
+                        reservas.pendientes.splice(reservaIndex, 1);
+                    }
+                } else if (tipo === 'proximas') {
+                    reservaIndex = reservas.proximas.findIndex(r => r.id === reservaId);
+                    if (reservaIndex !== -1) {
+                        reserva = reservas.proximas[reservaIndex];
+                        reservas.proximas.splice(reservaIndex, 1);
+                    }
+                }
+                
+                if (reserva) {
+                    reserva.estado = 'cancelada';
+                    reservas.historial.push(reserva);
+                    alert('Reserva cancelada.');
+                    actualizarTodasLasVistas();
+                }
+            }
+        }
+
+        function unirseTutoria(reserva) {
+            alert(`Uniéndose a la tutoría: ${reserva.titulo}\nCon: ${reserva.tutor}\nEn: ${reserva.modalidad}`);
+            setTimeout(() => {
+                if (confirm('¿Has completado la tutoría?')) {
+                    const reservaIndex = reservas.proximas.findIndex(r => r.id === reserva.id);
+                    if (reservaIndex !== -1) {
+                        const reservaCompletada = reservas.proximas[reservaIndex];
+                        reservaCompletada.estado = 'completada';
+                        reservas.proximas.splice(reservaIndex, 1);
+                        reservas.historial.push(reservaCompletada);
+                        alert('¡Tutoría completada! Gracias por usar SmartStudy.');
+                        actualizarTodasLasVistas();
+                    }
+                }
+            }, 2000);
+        }
+
+        // ===== VISTAS DE RESERVAS =====
+        function actualizarTodasLasVistas() {
+            actualizarVistaReservas('proximas');
+            actualizarVistaReservas('pendientes');
+            actualizarVistaReservas('historial');
+        }
+
+        function actualizarVistaReservas(tipo) {
+            const contenedor = document.getElementById(`reservas-${tipo}`);
+            const emptyState = document.getElementById(`empty-${tipo}`);
+            contenedor.innerHTML = '';
+            
+            if (reservas[tipo].length === 0) {
+                emptyState.style.display = 'block';
+                contenedor.style.display = 'none';
+            } else {
+                emptyState.style.display = 'none';
+                contenedor.style.display = 'grid';
+                reservas[tipo].forEach(reserva => {
+                    const tarjeta = crearTarjetaReserva(reserva, tipo);
+                    contenedor.appendChild(tarjeta);
+                });
+            }
+        }
+
+        function crearTarjetaReserva(reserva, tipo) {
+            const tarjeta = document.createElement('div');
+            tarjeta.className = 'tutoria-card';
+            tarjeta.innerHTML = `
+                <div class="card-header">
+                    <h3>${reserva.titulo}</h3>
+                    <p class="estado-${reserva.estado}">${obtenerTextoEstado(reserva.estado)}</p>
+                </div>
+                <div class="card-body">
+                    <div class="tutor-info">
+                        <div class="avatar">${reserva.avatar}</div>
+                        <div class="tutor-details">
+                            <h4>${reserva.tutor}</h4>
+                            <div class="rating">${reserva.rating}</div>
+                        </div>
+                    </div>
+                    <div class="tutoria-details">
+                        <div class="detail">
+                            <span>Fecha:</span>
+                            <span>${reserva.fecha}</span>
+                        </div>
+                        <div class="detail">
+                            <span>Hora:</span>
+                            <span>${reserva.hora}</span>
+                        </div>
+                        <div class="detail">
+                            <span>Duración:</span>
+                            <span>${reserva.duracion}</span>
+                        </div>
+                        <div class="detail">
+                            <span>Modalidad:</span>
+                            <span>${reserva.modalidad === 'virtual' ? 'Virtual' : 'Presencial'}</span>
+                        </div>
+                        ${tipo === 'historial' ? `
+                        <div class="detail">
+                            <span>Reservado:</span>
+                            <span>${reserva.fechaReserva}</span>
+                        </div>
+                        ` : ''}
+                    </div>
+                </div>
+                <div class="card-footer">
+                    ${generarBotonesReserva(reserva, tipo)}
+                </div>
+            `;
+            
+            setTimeout(() => {
+                const btnConfirmar = tarjeta.querySelector('.btn-confirmar');
+                const btnCancelar = tarjeta.querySelector('.btn-cancelar');
+                const btnUnirse = tarjeta.querySelector('.btn-unirse');
+                
+                if (btnConfirmar) {
+                    btnConfirmar.addEventListener('click', () => confirmarReserva(reserva.id));
+                }
+                if (btnCancelar) {
+                    btnCancelar.addEventListener('click', () => cancelarReserva(reserva.id, tipo));
+                }
+                if (btnUnirse) {
+                    btnUnirse.addEventListener('click', () => unirseTutoria(reserva));
+                }
+            }, 0);
+            
+            return tarjeta;
+        }
+
+        function generarBotonesReserva(reserva, tipo) {
+            switch(tipo) {
+                case 'pendientes':
+                    return `
+                        <button class="btn btn-outline btn-cancelar">Cancelar</button>
+                        <button class="btn btn-primary btn-confirmar">Confirmar</button>
+                    `;
+                case 'proximas':
+                    return `
+                        <button class="btn btn-outline btn-cancelar">Cancelar</button>
+                        <button class="btn btn-primary btn-unirse">Unirse</button>
+                    `;
+                case 'historial':
+                    if (reserva.estado === 'completada') {
+                        return `<button class="btn btn-outline">Ver Detalles</button>`;
+                    } else {
+                        return `<span class="estado-${reserva.estado}">${obtenerTextoEstado(reserva.estado)}</span>`;
+                    }
+                default:
+                    return '';
+            }
+        }
+
+        function obtenerTextoEstado(estado) {
+            const estados = {
+                'pendiente': 'Pendiente',
+                'confirmada': 'Confirmada',
+                'completada': 'Completada',
+                'cancelada': 'Cancelada'
+            };
+            return estados[estado] || estado;
+        }
+
+        // ===== NAVEGACIÓN Y MODALES =====
+        function mostrarSeccion(seccion) {
+            document.getElementById('tutorias-section').style.display = 'none';
+            document.getElementById('tutores-section').style.display = 'none';
+            document.getElementById('reservas-section').style.display = 'none';
+            document.getElementById('filtros-section').style.display = 'none';
+            
+            switch(seccion) {
+                case 'inicio':
+                    document.getElementById('tutorias-section').style.display = 'block';
+                    document.getElementById('filtros-section').style.display = 'block';
+                    break;
+                case 'tutorias':
+                    document.getElementById('tutorias-section').style.display = 'block';
+                    document.getElementById('filtros-section').style.display = 'block';
+                    break;
+                case 'tutores':
+                    document.getElementById('tutores-section').style.display = 'block';
+                    break;
+                case 'reservas':
+                    document.getElementById('reservas-section').style.display = 'block';
+                    break;
+            }
+            
+            document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
+            document.getElementById(`nav-${seccion}`).classList.add('active');
+        }
+
+        function scrollToTutorias() {
+            document.getElementById('tutorias-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            mostrarSeccion('tutorias');
+        }
+
+        // ===== EVENT LISTENERS =====
+        function inicializarEventListeners() {
+            // Navegación
+            document.getElementById('nav-inicio').addEventListener('click', (e) => {
+                e.preventDefault();
+                mostrarSeccion('inicio');
+            });
+            
+            document.getElementById('nav-tutorias').addEventListener('click', (e) => {
+                e.preventDefault();
+                mostrarSeccion('tutorias');
+            });
+            
+            document.getElementById('nav-tutores').addEventListener('click', (e) => {
+                e.preventDefault();
+                mostrarSeccion('tutores');
+            });
+            
+            document.getElementById('nav-como-funciona').addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('comoFuncionaModal').style.display = 'flex';
+            });
+            
+            document.getElementById('nav-contacto').addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('contactoModal').style.display = 'flex';
+            });
+            
+            // Filtros
+            document.getElementById('materia').addEventListener('change', aplicarFiltros);
+            document.getElementById('modalidad').addEventListener('change', aplicarFiltros);
+            document.getElementById('fecha').addEventListener('change', aplicarFiltros);
+            document.getElementById('searchInput').addEventListener('input', aplicarFiltros);
+            document.getElementById('searchButton').addEventListener('click', aplicarFiltros);
+            document.getElementById('resetFilters').addEventListener('click', limpiarFiltros);
+            
+            document.getElementById('searchInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    aplicarFiltros();
+                }
+            });
+            
+            // Reservas
+            document.addEventListener('click', (e) => {
+                if (e.target.classList.contains('reservar-btn')) {
+                    const tutoriaId = parseInt(e.target.getAttribute('data-id'));
+                    realizarReserva(tutoriaId);
+                }
+            });
+            
+            // Pestañas de reservas
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    tab.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                    actualizarVistaReservas(tabId);
+                });
+            });
+            
+            // Modales de autenticación
+            const loginBtn = document.getElementById('loginBtn');
+            const registerBtn = document.getElementById('registerBtn');
+            const loginModal = document.getElementById('loginModal');
+            const registerModal = document.getElementById('registerModal');
+            const switchToRegister = document.getElementById('switchToRegister');
+            const switchToLogin = document.getElementById('switchToLogin');
+            
+            loginBtn.addEventListener('click', () => loginModal.style.display = 'flex');
+            registerBtn.addEventListener('click', () => registerModal.style.display = 'flex');
+            
+            switchToRegister.addEventListener('click', (e) => {
+                e.preventDefault();
+                loginModal.style.display = 'none';
+                registerModal.style.display = 'flex';
+            });
+            
+            switchToLogin.addEventListener('click', (e) => {
+                e.preventDefault();
+                registerModal.style.display = 'none';
+                loginModal.style.display = 'flex';
+            });
+            
+            // Cerrar modales
+            window.addEventListener('click', (e) => {
+                if (e.target.classList.contains('modal')) {
+                    e.target.style.display = 'none';
+                }
+            });
+            
+            // Formularios
+            document.getElementById('loginForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Inicio de sesión simulado - Funcionalidad en desarrollo');
+                document.getElementById('loginModal').style.display = 'none';
+            });
+            
+            document.getElementById('registerForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Registro simulado - Funcionalidad en desarrollo');
+                document.getElementById('registerModal').style.display = 'none';
+            });
+            
+            document.getElementById('contactoForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Mensaje enviado - Nos pondremos en contacto pronto');
+                document.getElementById('contactoModal').style.display = 'none';
+            });
+            
+            // Navegación del footer
+            document.querySelectorAll('.footer-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const seccion = link.getAttribute('data-section');
+                    if (seccion === 'como-funciona') {
+                        document.getElementById('comoFuncionaModal').style.display = 'flex';
+                    } else if (seccion === 'contacto') {
+                        document.getElementById('contactoModal').style.display = 'flex';
+                    } else {
+                        mostrarSeccion(seccion);
+                    }
+                });
+            });
+        }
+    </script>
 </body>
 </html>
